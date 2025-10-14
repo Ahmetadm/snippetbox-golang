@@ -1,5 +1,5 @@
 package main
-
+//Chapter 2.7  - Project structure and organization
 import (
 	"fmt"
 	"log"
@@ -7,6 +7,10 @@ import (
 	"strconv"
 )
 func home(w http.ResponseWriter, r *http.Request) {
+	//adds Server key to header, with value go
+	//Server:Go
+	//NOTE: all header actions like below should go before w.Write, to have an effect
+	 	w.Header().Add("Server", "Go")
     w.Write([]byte("Hello from Snippetbox"))
 }
 func snippetView(w http.ResponseWriter, r *http.Request) {
@@ -22,8 +26,9 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 
     // Use the fmt.Sprintf() function to interpolate the id value with a
     // message, then write it as the HTTP response.
-    msg := fmt.Sprintf("Display a specific snippet with ID %d...", id)
-    w.Write([]byte(msg))
+    // msg := fmt.Sprintf("Display a specific snippet with ID %d...", id)
+    // w.Write([]byte(msg))
+		 fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
 }
 
 
@@ -32,8 +37,10 @@ func snippetCreate(w http.ResponseWriter, r *http.Request) {
 }
 func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	   // Use the w.WriteHeader() method to send a 201 status code.
-    w.WriteHeader(201)
-    w.Write([]byte("Save a new snippet..."))
+		//  w.WriteHeader(201)
+		w.WriteHeader(http.StatusCreated)
+
+		 w.Write([]byte("Save a new snippet..."))
 }
 
 func main(){
