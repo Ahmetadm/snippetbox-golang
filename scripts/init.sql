@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS snippetbox CHARACTER SET utf8mb4 COLLATE utf8mb4_u
 USE snippetbox;
 
 -- Create a `snippets` table.
-CREATE TABLE snippets (
+CREATE TABLE IF NOT EXISTS snippets (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE snippets (
 );
 
 -- Add an index on the created column.
-CREATE INDEX idx_snippets_created ON snippets(created);
+CREATE INDEX IF NOT EXISTS idx_snippets_created ON snippets(created);
 
 -- Add some dummy records (which we'll use in the next couple of chapters).
 INSERT INTO snippets (title, content, created, expires) VALUES (
